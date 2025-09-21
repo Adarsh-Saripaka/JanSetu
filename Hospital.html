@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login - JanSetu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f5f7fa;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Enhanced Background Design */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
+            overflow: hidden;
+        }
+
+        /* Animated Wave Pattern */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%2387CEEB" fill-opacity="0.3" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            animation: waveMove 20s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            bottom: 10px;
+            opacity: 0.5;
+            animation: waveMove 15s linear infinite reverse;
+        }
+
+        .wave:nth-child(3) {
+            bottom: 20px;
+            opacity: 0.3;
+            animation: waveMove 25s linear infinite;
+        }
+
+        @keyframes waveMove {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1440px; }
+        }
+
+        /* Floating Bubbles */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(135, 206, 235, 0.8), rgba(135, 206, 235, 0.2));
+            box-shadow: 0 0 10px rgba(135, 206, 235, 0.5);
+            animation: floatBubble 15s infinite ease-in-out;
+        }
+
+        @keyframes floatBubble {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Light Pattern Overlay */
+        .light-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 8%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 8%),
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 8%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 8%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 15%);
+            background-size: 200px 200px;
+            animation: moveLightPattern 30s linear infinite;
+        }
+
+        @keyframes moveLightPattern {
+            0% { background-position: 0 0; }
+            100% { background-position: 200px 200px; }
+        }
+
+        /* Header and Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(135, 206, 235, 0.9); /* Light blue with transparency */
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            animation: slideDownBounce 0.8s ease-out;
+        }
+
+        @keyframes slideDownBounce {
+            0% { transform: translateY(-100px); opacity: 0; }
+            60% { transform: translateY(20px); opacity: 0.8; }
+            80% { transform: translateY(-10px); opacity: 0.9; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .appname {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0056b3;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .appname:hover {
+            transform: scale(1.05);
+        }
+
+        .appname i {
+            margin-right: 8px;
+            color: #0056b3;
+        }
+
+        .taskbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .taskbar a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 15px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .taskbar a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .taskbar a:hover::before {
+            left: 100%;
+        }
+
+        .taskbar a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            text-decoration: underline;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            margin-top: 5px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: dropdownBounce 0.5s ease forwards;
+        }
+
+        @keyframes dropdownBounce {
+            0% { 
+                opacity: 0; 
+                transform: translateY(-10px) scale(0.95);
+            }
+            60% { 
+                opacity: 1; 
+                transform: translateY(5px) scale(1.02);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .dropdown-content a {
+            color: #0056b3;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #e1f5fe;
+            padding-left: 20px;
+            transform: translateX(5px);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 20px 50px;
+        }
+
+        .loginpage2 {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: formEntry 1s ease-out;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        @keyframes formEntry {
+            0% { 
+                opacity: 0; 
+                transform: translateY(50px) rotateX(15deg) scale(0.9);
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateY(-10px) rotateX(5deg) scale(1.02);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) rotateX(0) scale(1);
+            }
+        }
+
+        .loginpage2::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            z-index: -1;
+            animation: rotateGradient 20s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            0% { transform: rotate(45deg); }
+            100% { transform: rotate(405deg); }
+        }
+
+        .headi {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .headi h1 {
+            color: #0056b3;
+            font-size: 32px;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .headi h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0056b3, #87CEEB);
+            transition: width 0.5s ease;
+        }
+
+        .headi:hover h1::after {
+            width: 100%;
+        }
+
+        .headi p {
+            color: #666;
+            font-size: 16px;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(10px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 16px;
+            color: #333;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #87CEEB;
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.3);
+            transform: translateY(-2px);
+            animation: inputPulse 0.5s ease;
+        }
+
+        @keyframes inputPulse {
+            0% { box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.3); }
+            50% { box-shadow: 0 0 0 6px rgba(135, 206, 235, 0.5); }
+            100% { box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.3); }
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #87CEEB;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus + i {
+            color: #0056b3;
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #87CEEB;
+            cursor: pointer;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #0056b3;
+        }
+
+        .fp {
+            text-align: right;
+            margin-bottom: 25px;
+        }
+
+        .fp a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+
+        .fp a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0056b3;
+            transition: width 0.3s ease;
+        }
+
+        .fp a:hover::after {
+            width: 100%;
+        }
+
+        .loginb {
+            margin-top: 10px;
+        }
+
+        .loginb input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #0056b3, #87CEEB);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .loginb input[type="submit"]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #87CEEB, #0056b3);
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .loginb input[type="submit"]:hover::before {
+            opacity: 1;
+        }
+
+        .loginb input[type="submit"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0, 86, 179, 0.4);
+            animation: buttonBounce 0.5s ease;
+        }
+
+        @keyframes buttonBounce {
+            0%, 100% { transform: translateY(-3px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .loginb input[type="submit"]:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 86, 179, 0.3);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #999;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+
+        .divider span {
+            padding: 0 15px;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .google-btn i {
+            margin-right: 10px;
+            color: #ea4335;
+            font-size: 20px;
+        }
+
+        .google-btn:hover {
+            background-color: #f5f5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: rgba(135, 206, 235, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            text-align: center;
+            color: #333;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            animation: footerSlideUp 1s ease-out;
+        }
+
+        @keyframes footerSlideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: #0056b3;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 3px;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0056b3;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .taskbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .taskbar a {
+                margin: 5px;
+            }
+
+            .header {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .appname {
+                margin-bottom: 10px;
+            }
+
+            .main-content {
+                padding: 120px 20px 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Background Design -->
+    <div class="bg-container">
+        <!-- Animated Wave Pattern -->
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        
+        <!-- Light Pattern Overlay -->
+        <div class="light-pattern"></div>
+    </div>
+
+    <!-- Header with Navigation -->
+    <div class="header">
+        <div class="appname">
+            <i class="fas fa-landmark"></i> JanSetu
+        </div>
+        <div class="taskbar">
+            <a href="Landing.html" class="homepage">Home Page</a>
+            <a href="#" class="about">About</a>
+            <div class="dropdown">
+                <a href="#" class="service">Services ▾</a>
+                <div class="dropdown-content">
+                    <a href="Userpage.html">User</a>
+                    <a href="NGOS.html">NGOS</a>
+                    <a href="Government.html">Government</a>
+                </div>
+            </div>
+            <a href="#" class="contact">Contact</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="loginpage2">
+            <form action="" method="post" id="loginform">
+                <div class="headi">
+                    <h1>Hospital Login</h1>
+                    <p>Access your JanSetu account</p>
+                </div>
+
+                <div class="form-group user">
+                    <input type="text" name="Hospital" placeholder="Enter Hospital ID" required 
+                    maxlength="14" 
+                    pattern="\d{4}\s\d{4}\s\d{4}" 
+                    title="Enter a valid 12-digit Aadhar number in the format XXXX XXXX XXXX">
+                    <i class="fas fa-id-card"></i>
+                </div>
+
+                <div class="form-group pass">
+                    <input type="password" name="pass" id="passwordInput" placeholder="Enter Password" required>
+                    <i class="fas fa-lock"></i>
+                    <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+                </div>
+
+                <div class="fp">
+                    <a href="ufp.html">Forgot Password?</a>
+                </div>
+
+                <div class="loginb">
+                    <input type="submit" value="Login">
+                </div>
+
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+
+                <div class="social-login">
+                    <div class="google-btn" id="googleLogin">
+                        <i class="fab fa-google"></i> Google
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2023 JanSetu. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help Center</a>
+        </div>
+    </div>
+
+    <script>
+        // Create floating bubbles
+        function createBubbles() {
+            const bgContainer = document.querySelector('.bg-container');
+            const bubbleCount = 15;
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                // Random size between 10px and 50px
+                const size = Math.random() * 40 + 10;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                // Random position
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.bottom = `-${size}px`;
+                
+                // Random animation duration between 10s and 20s
+                const duration = Math.random() * 10 + 10;
+                bubble.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                bubble.style.animationDelay = `${Math.random() * 5}s`;
+                
+                bgContainer.appendChild(bubble);
+            }
+        }
+        
+        // Initialize bubbles when page loads
+        window.addEventListener('load', createBubbles);
+        
+        // Form submission handler
+        document.getElementById("loginform").addEventListener("submit", function(e){
+            e.preventDefault();
+            // Add form validation here if needed
+            window.location.href = "details.html";
+        });
+
+        // Format Aadhar input as user types
+        const aadharInput = document.querySelector('input[name="aadhar"]');
+        aadharInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            if (formattedValue.length > 14) {
+                formattedValue = formattedValue.substring(0, 14);
+            }
+            e.target.value = formattedValue;
+        });
+        
+        // Google login button handler
+        document.getElementById('googleLogin').addEventListener('click', function() {
+            // In a real application, this would initiate Google OAuth
+            alert('Google login would be initiated here');
+            // window.location.href = "google-auth-url";
+        });
+
+        // Password visibility toggle
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordToggle = document.getElementById('passwordToggle');
+
+        passwordToggle.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.classList.remove('fa-eye');
+                passwordToggle.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.classList.remove('fa-eye-slash');
+                passwordToggle.classList.add('fa-eye');
+            }
+        });
+    </script>
+</body>
+</html>
