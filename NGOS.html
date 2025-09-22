@@ -399,11 +399,12 @@
             color: #87CEEB;
             z-index: 2;
             transition: all 0.3s ease;
+            transform-origin: center;
         }
 
         .form-group input:focus + i {
             color: #0056b3;
-            transform: translateY(-50%) scale(1.2);
+            transform: translateY(-50%) scale(1.1);
         }
 
         .password-toggle {
@@ -549,12 +550,185 @@
             margin-right: 10px;
             color: #ea4335;
             font-size: 20px;
+            transform-origin: center;
         }
 
         .google-btn:hover {
             background-color: #f5f5f5;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Contact Page Styles */
+        .contact-container {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: formEntry 1s ease-out;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .contact-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            z-index: -1;
+            animation: rotateGradient 20s linear infinite;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-header h2 {
+            color: #0056b3;
+            font-size: 32px;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .contact-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0056b3, #87CEEB);
+            transition: width 0.5s ease;
+        }
+
+        .contact-header:hover h2::after {
+            width: 100%;
+        }
+
+        .contact-header p {
+            color: #666;
+            font-size: 16px;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(135, 206, 235, 0.2);
+            animation: slideInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            overflow: hidden;
+        }
+
+        .contact-card:nth-child(1) { animation-delay: 0.1s; }
+        .contact-card:nth-child(2) { animation-delay: 0.2s; }
+        .contact-card:nth-child(3) { animation-delay: 0.3s; }
+        .contact-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideInUp {
+            from { 
+                transform: translateY(30px) rotateX(10deg) scale(0.95);
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0) rotateX(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px) rotateX(5deg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #87CEEB;
+        }
+
+        .contact-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #0056b3;
+            transition: all 0.3s ease;
+            display: inline-block;
+            transform-origin: center center;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1);
+        }
+
+        .contact-card h3 {
+            color: #0056b3;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .contact-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .contact-card .highlight {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0056b3;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 30px auto 0;
+            padding: 12px 24px;
+            background: linear-gradient(90deg, #0056b3, #87CEEB);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0, 86, 179, 0.4);
+            animation: buttonBounce 0.5s ease;
+        }
+
+        .back-button i {
+            transition: transform 0.3s ease;
+            transform-origin: center;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-5px);
         }
 
         /* Footer */
@@ -634,6 +808,10 @@
             .main-content {
                 padding: 120px 20px 50px;
             }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -666,13 +844,14 @@
                     <a href="Government.html">Government</a>
                 </div>
             </div>
-            <a href="#" class="contact">Contact</a>
+            <a href="#" class="contact" onclick="showContactPage()">Contact</a>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <div class="loginpage2">
+        <!-- NGO Login Page -->
+        <div id="ngo-login-page" class="loginpage2">
             <form action="" method="post" id="loginform">
                 <div class="headi">
                     <h1>NGOS Login</h1>
@@ -681,9 +860,8 @@
 
                 <div class="form-group user">
                     <input type="text" name="NGO" placeholder="Enter NGO ID" required 
-                    maxlength="14" 
-                    pattern="\d{4}\s\d{4}\s\d{4}" 
-                    title="Enter a valid 12-digit Aadhar number in the format XXXX XXXX XXXX">
+                    maxlength="10"
+                    title="Enter a valid 10-digit NGO ID">
                     <i class="fas fa-id-card"></i>
                 </div>
 
@@ -711,6 +889,49 @@
                     </div>
                 </div>
             </form>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact-page" class="contact-container">
+            <div class="contact-header">
+                <h2>Contact Us</h2>
+                <p>Reach out to us for any queries or assistance</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Helpline Number</h3>
+                    <p>For immediate assistance, call our 24/7 helpline:</p>
+                    <span class="highlight">1800-123-4567</span>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">✉️</div>
+                    <h3>Email Support</h3>
+                    <p>For detailed queries and documentation requests:</p>
+                    <span class="highlight">support@jansetu.gov.in</span>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3>Head Office</h3>
+                    <p>JanSetu National Center, CGO Complex, Lodhi Road, New Delhi - 110003</p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <h3>Social Media</h3>
+                    <p>Follow us for updates and announcements:</p>
+                    <span class="highlight">@JanSetuIndia</span>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="back-button" onclick="showNGOLoginPage()">
+                    <i class="fas fa-arrow-left"></i> Back to NGO Login
+                </button>
+            </div>
         </div>
     </div>
 
@@ -764,17 +985,6 @@
             window.location.href = "details.html";
         });
 
-        // Format Aadhar input as user types
-        const aadharInput = document.querySelector('input[name="aadhar"]');
-        aadharInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
-            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-            if (formattedValue.length > 14) {
-                formattedValue = formattedValue.substring(0, 14);
-            }
-            e.target.value = formattedValue;
-        });
-        
         // Google login button handler
         document.getElementById('googleLogin').addEventListener('click', function() {
             // In a real application, this would initiate Google OAuth
@@ -797,6 +1007,27 @@
                 passwordToggle.classList.add('fa-eye');
             }
         });
+
+        // Contact page functionality
+        function showContactPage() {
+            document.getElementById('ngo-login-page').style.display = 'none';
+            document.getElementById('contact-page').style.display = 'block';
+            
+            // Recreate bubbles for the contact page
+            const existingBubbles = document.querySelectorAll('.bubble');
+            existingBubbles.forEach(bubble => bubble.remove());
+            createBubbles();
+        }
+
+        function showNGOLoginPage() {
+            document.getElementById('contact-page').style.display = 'none';
+            document.getElementById('ngo-login-page').style.display = 'block';
+            
+            // Recreate bubbles for the NGO login page
+            const existingBubbles = document.querySelectorAll('.bubble');
+            existingBubbles.forEach(bubble => bubble.remove());
+            createBubbles();
+        }
     </script>
 </body>
 </html>
