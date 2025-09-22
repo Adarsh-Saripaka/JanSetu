@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Government Login - JanSetu</title>
+    <title>User Details - JanSetu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -263,12 +263,12 @@
             padding: 100px 20px 50px;
         }
 
-        .loginpage2 {
+        .details-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 450px;
+            max-width: 600px;
             padding: 40px 30px;
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -294,7 +294,7 @@
             }
         }
 
-        .loginpage2::before {
+        .details-card::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -312,13 +312,13 @@
             100% { transform: rotate(405deg); }
         }
 
-        .headi {
+        .details-header {
             text-align: center;
             margin-bottom: 30px;
             position: relative;
         }
 
-        .headi h1 {
+        .details-header h1 {
             color: #0056b3;
             font-size: 32px;
             margin-bottom: 10px;
@@ -326,7 +326,7 @@
             display: inline-block;
         }
 
-        .headi h1::after {
+        .details-header h1::after {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -337,224 +337,96 @@
             transition: width 0.5s ease;
         }
 
-        .headi:hover h1::after {
+        .details-header:hover h1::after {
             width: 100%;
         }
 
-        .headi p {
-            color: #666;
-            font-size: 16px;
-            animation: fadeInUp 1.5s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(10px);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0);
-            }
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 15px 20px 15px 50px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 2px solid #e0e0e0;
-            border-radius: 50px;
-            font-size: 16px;
-            color: #333;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #87CEEB;
-            background-color: rgba(255, 255, 255, 1);
-            box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.3);
-            transform: translateY(-2px);
-            animation: inputPulse 0.5s ease;
-        }
-
-        @keyframes inputPulse {
-            0% { box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.3); }
-            50% { box-shadow: 0 0 0 6px rgba(135, 206, 235, 0.5); }
-            100% { box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.3); }
-        }
-
-        .form-group i {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #87CEEB;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus + i {
-            color: #0056b3;
-            transform: translateY(-50%) scale(1.2);
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #87CEEB;
-            cursor: pointer;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-
-        .password-toggle:hover {
-            color: #0056b3;
-        }
-
-        .fp {
-            text-align: right;
-            margin-bottom: 25px;
-        }
-
-        .fp a {
-            color: #0056b3;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            display: inline-block;
-        }
-
-        .fp a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #0056b3;
-            transition: width 0.3s ease;
-        }
-
-        .fp a:hover::after {
-            width: 100%;
-        }
-
-        .loginb {
-            margin-top: 10px;
-        }
-
-        .loginb input[type="submit"] {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(90deg, #0056b3, #87CEEB);
+        .user-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0056b3, #87CEEB);
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             color: white;
-            border: none;
+            font-size: 48px;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(0, 86, 179, 0.2);
+            animation: avatarPulse 3s infinite ease-in-out;
+        }
+
+        @keyframes avatarPulse {
+            0% { box-shadow: 0 10px 20px rgba(0, 86, 179, 0.2); }
+            50% { box-shadow: 0 15px 30px rgba(0, 86, 179, 0.4); }
+            100% { box-shadow: 0 10px 20px rgba(0, 86, 179, 0.2); }
+        }
+
+        .details-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: rgba(135, 206, 235, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .details-item:hover {
+            background-color: rgba(135, 206, 235, 0.2);
+            transform: translateX(5px);
+        }
+
+        .details-item i {
+            color: #0056b3;
+            font-size: 20px;
+            margin-right: 15px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .details-label {
+            font-weight: 600;
+            color: #0056b3;
+            margin-right: 10px;
+            min-width: 100px;
+        }
+
+        .details-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            padding: 12px 25px;
             border-radius: 50px;
-            font-size: 18px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
+            border: none;
+            font-size: 16px;
             position: relative;
             overflow: hidden;
-            z-index: 1;
         }
 
-        .loginb input[type="submit"]::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, #87CEEB, #0056b3);
-            z-index: -1;
-            transition: opacity 0.3s ease;
-            opacity: 0;
+        .back-btn {
+            background-color: white;
+            color: #0056b3;
+            border: 2px solid #0056b3;
         }
 
-        .loginb input[type="submit"]:hover::before {
-            opacity: 1;
-        }
-
-        .loginb input[type="submit"]:hover {
+        .back-btn:hover {
+            background-color: #0056b3;
+            color: white;
             transform: translateY(-3px);
             box-shadow: 0 7px 15px rgba(0, 86, 179, 0.4);
-            animation: buttonBounce 0.5s ease;
-        }
-
-        @keyframes buttonBounce {
-            0%, 100% { transform: translateY(-3px); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .loginb input[type="submit"]:active {
-            transform: translateY(1px);
-            box-shadow: 0 2px 5px rgba(0, 86, 179, 0.3);
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 25px 0;
-            color: #999;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background-color: #e0e0e0;
-        }
-
-        .divider span {
-            padding: 0 15px;
-        }
-
-        .social-login {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .google-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 50px;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 500;
-            color: #555;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .google-btn i {
-            margin-right: 10px;
-            color: #ea4335;
-            font-size: 20px;
-        }
-
-        .google-btn:hover {
-            background-color: #f5f5f5;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
         /* Footer */
@@ -634,6 +506,16 @@
             .main-content {
                 padding: 120px 20px 50px;
             }
+
+            .details-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .details-label {
+                margin-bottom: 5px;
+                min-width: auto;
+            }
         }
     </style>
 </head>
@@ -661,9 +543,9 @@
             <div class="dropdown">
                 <a href="#" class="service">Services ▾</a>
                 <div class="dropdown-content">
-                    <a href="Userpage.html">User</a>
-                    <a href="NGOS.html">NGOS</a>
+                    <a href="NGOS.html">NGOs</a>
                     <a href="Hospital.html">Hospital</a>
+                    <a href="Government.html">Government</a>
                 </div>
             </div>
             <a href="#" class="contact">Contact</a>
@@ -672,45 +554,50 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <div class="loginpage2">
-            <form action="" method="post" id="loginform">
-                <div class="headi">
-                    <h1>Government Login</h1>
-                    <p>Access your JanSetu account</p>
-                </div>
-
-                <div class="form-group user">
-                    <input type="text" name="Government" placeholder="Enter Government ID" required 
-                    maxlength="14" 
-                    pattern="\d{4}\s\d{4}\s\d{4}" 
-                    title="Enter a valid 12-digit Aadhar number in the format XXXX XXXX XXXX">
-                    <i class="fas fa-id-card"></i>
-                </div>
-
-                <div class="form-group pass">
-                    <input type="password" name="pass" id="passwordInput" placeholder="Enter Password" required>
-                    <i class="fas fa-lock"></i>
-                    <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
-                </div>
-
-                <div class="fp">
-                    <a href="ufp.html">Forgot Password?</a>
-                </div>
-
-                <div class="loginb">
-                    <input type="submit" value="Login">
-                </div>
-
-                <div class="divider">
-                    <span>or continue with</span>
-                </div>
-
-                <div class="social-login">
-                    <div class="google-btn" id="googleLogin">
-                        <i class="fab fa-google"></i> Google
-                    </div>
-                </div>
-            </form>
+        <div class="details-card">
+            <div class="details-header">
+                <h1>User Details</h1>
+            </div>
+            
+            <div class="user-avatar">
+                AS
+            </div>
+            
+            <div class="details-item">
+                <i class="fas fa-id-card"></i>
+                <span class="details-label">Aadhar No.:</span>
+                <span class="details-value">2532 5629 5928</span>
+            </div>
+            
+            <div class="details-item">
+                <i class="fas fa-user"></i>
+                <span class="details-label">Name:</span>
+                <span class="details-value">Adarsh Saripaka</span>
+            </div>
+            
+            <div class="details-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="details-label">DOB:</span>
+                <span class="details-value">01/04/2007</span>
+            </div>
+            
+            <div class="details-item">
+                <i class="fas fa-venus-mars"></i>
+                <span class="details-label">Gender:</span>
+                <span class="details-value">Male</span>
+            </div>
+            
+            <div class="details-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span class="details-label">Address:</span>
+                <span class="details-value">RamNagar, Vishakhapatnam, Andhra Pradesh</span>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </div>
         </div>
     </div>
 
@@ -757,46 +644,11 @@
         // Initialize bubbles when page loads
         window.addEventListener('load', createBubbles);
         
-        // Form submission handler
-        document.getElementById("loginform").addEventListener("submit", function(e){
-            e.preventDefault();
-            // Add form validation here if needed
-            window.location.href = "details.html";
-        });
-
-        // Format Aadhar input as user types
-        const aadharInput = document.querySelector('input[name="aadhar"]');
-        aadharInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
-            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-            if (formattedValue.length > 14) {
-                formattedValue = formattedValue.substring(0, 14);
-            }
-            e.target.value = formattedValue;
-        });
-        
-        // Google login button handler
-        document.getElementById('googleLogin').addEventListener('click', function() {
-            // In a real application, this would initiate Google OAuth
-            alert('Google login would be initiated here');
-            // window.location.href = "google-auth-url";
-        });
-
-        // Password visibility toggle
-        const passwordInput = document.getElementById('passwordInput');
-        const passwordToggle = document.getElementById('passwordToggle');
-
-        passwordToggle.addEventListener('click', function() {
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                passwordToggle.classList.remove('fa-eye');
-                passwordToggle.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                passwordToggle.classList.remove('fa-eye-slash');
-                passwordToggle.classList.add('fa-eye');
-            }
-        });
+        // Button functions
+        function goBack() {
+            // Navigate back to the previous page
+            window.history.back();
+        }
     </script>
 </body>
 </html>

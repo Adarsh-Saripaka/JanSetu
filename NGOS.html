@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login - JanSetu</title>
+    <title>NGO Login - JanSetu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -150,9 +150,15 @@
             transform: scale(1.05);
         }
 
-        .appname i {
-            margin-right: 8px;
-            color: #0056b3;
+        .logo {
+            height: 40px;
+            margin-right: 12px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
         }
 
         .taskbar {
@@ -646,7 +652,8 @@
     <!-- Header with Navigation -->
     <div class="header">
         <div class="appname">
-            <i class="fas fa-landmark"></i> JanSetu
+            <img src="https://z-cdn-media.chatglm.cn/files/01a4db4f-57c6-4706-b597-3b46b22ceb51_Logo.jpg?auth_key=1790096891-84aef53cf017415f94a789c08c0ba62d-0-99a8e52f18cfb26a3651b4c84b8a7e2d" alt="JanSetu Logo" class="logo">
+            JanSetu
         </div>
         <div class="taskbar">
             <a href="index.html" class="homepage">Home Page</a>
